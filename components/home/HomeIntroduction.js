@@ -1,55 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { Transition } from 'react-transition-group';
+import React, { useEffect, useRef } from 'react';
+import { TweenMax, Power3, TimelineMax } from 'gsap'
 
 const HomeIntroduction = (props) => {
-    const [inProp, setInProp] = useState(false);
     const { beginAnimationTime } = props
+    let { introText, introImage } = useRef(null)
+    let timeLine = new TimelineMax()
 
     useEffect(() => {
-        setTimeout(() => {
-            setInProp(true)
-        }, beginAnimationTime)
-    });
+
+        timeLine.to(introText, 1, { opacity: 1, y: 20, ease: Power3.easeOut })
+            .to(introImage, 1, { opacity: 1, y: 20, ease: Power3.easeOut })
+
+    }, []);
 
     return (
         <div className="introduction">
-            <Transition
-                in={inProp}
-                appear={true}
-                timeout={10000}
-                classNames="textAnimation"
-                addEndListener={(node, done) => {
-                    // node.addEventListener('transitionend', done, false);
-                    console.log('The text component has finished animating')
-                }}>
-                {state => (
-                    <h1 className={`textAnimation textAnimation-${state}`}>
-                        Welcome to Iceland
-                    </h1>
-                )}
-            </Transition>
+            <h1 ref={el => { introText = el }}>Welcome to Iceland</h1>
+            <img ref={el => { introImage = el }} src="https://placehold.it/200x200" />
 
             <style jsx>{`
-                    .introduction {
-                        background: #000;
-                        height: 100vh;
-                        h1 {
-                            color: #fff;
-                            margin-top: 0px;
-                        }
+                .introduction {
+                    background: #000;
+                    height: 100vh;
+                    h1, img {
+                        opacity: 0;
+                        transform: translateY(0);
+                        color: #fff;
+                        margin-top: 0px;
                     }
-                    .textAnimation {
-                        &-exited {
-                            opacity: 0;
-                            transition: opacity 300ms linear;
-                        }
-                        &-entering {
-                            opacity: 1;
-                            transition: opacity 300ms linear;
-                        }
-                    }
+                }
                 `}</style>
-        </div>
+        </div >
     )
 }
 
