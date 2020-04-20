@@ -5,7 +5,7 @@ import HomeIntroduction from './HomeIntroduction'
 const HomeContainer = () => {
     const { musicPlaying } = useContext(GlobalContext)
     const music = useRef('music')
-    const beginAnimationTime = 5000
+    const beginAnimationTime = 3000
 
     useEffect(() => {
         setTimeout(() => {

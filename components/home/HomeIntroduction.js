@@ -12,7 +12,7 @@ const HomeIntroduction = (props) => {
     });
 
     return (
-        <div>
+        <div className="introduction">
             <Transition
                 in={inProp}
                 appear={true}
@@ -30,6 +30,14 @@ const HomeIntroduction = (props) => {
             </Transition>
 
             <style jsx>{`
+                    .introduction {
+                        background: #000;
+                        height: 100vh;
+                        h1 {
+                            color: #fff;
+                            margin-top: 0px;
+                        }
+                    }
                     .textAnimation {
                         &-exited {
                             opacity: 0;
