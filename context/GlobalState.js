@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 
 const initialState = {
-    musicPlaying: true
+    musicPlaying: false
 }
 
 export const GlobalContext = createContext(initialState)

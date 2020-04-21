@@ -5,24 +5,23 @@ import HomeIntroduction from './HomeIntroduction'
 const HomeContainer = () => {
     const { musicPlaying } = useContext(GlobalContext)
     const music = useRef('music')
-    const beginAnimationTime = 3000
 
     useEffect(() => {
-        setTimeout(() => {
-            if (musicPlaying == true) {
-                // music.current.play()
-                music.current.pause()
-            } else {
-                music.current.pause()
-            }
-        }, beginAnimationTime)
+        // play music on the homepage.
+        if (musicPlaying == true) {
+            music.current.play()
+            // return
+        } else {
+            // return
+            music.current.pause()
+        }
 
     });
 
     return (
         <div className="homePage">
 
-            <HomeIntroduction beginAnimationTime={beginAnimationTime} />
+            <HomeIntroduction />
 
             <audio ref={music}>
                 <source src="glacier-chris-haugen.mp3" type="audio/mpeg" />
