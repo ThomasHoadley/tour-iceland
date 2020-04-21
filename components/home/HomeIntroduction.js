@@ -39,7 +39,7 @@ const HomeIntroduction = (props) => {
                 .to(introContainer, 3, {
                     backgroundColor: '#000',
                     ease: Power3.easeOut,
-                }, ">")
+                }, ">").eventCallback('onComplete', alert)
         }
 
         // master timeline
