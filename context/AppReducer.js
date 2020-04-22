@@ -7,6 +7,14 @@ export default (state, action) => {
             }
 
             break;
+
+        case 'TOGGLE_INTRO_COMPETE':
+            return {
+                ...state,
+                introComplete: action.payload
+            }
+
+            break;
         default:
             break;
     }

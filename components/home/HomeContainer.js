@@ -3,7 +3,7 @@ import { GlobalContext } from '../../context/GlobalState'
 import HomeIntroduction from './HomeIntroduction'
 
 const HomeContainer = () => {
-    const { musicPlaying } = useContext(GlobalContext)
+    const { musicPlaying, introComplete } = useContext(GlobalContext)
     const music = useRef('music')
 
     useEffect(() => {
@@ -20,8 +20,10 @@ const HomeContainer = () => {
 
     return (
         <div className="homePage">
-
-            <HomeIntroduction />
+            {!introComplete
+                ? <HomeIntroduction />
+                : <h1>The map</h1>
+            }
 
             <audio ref={music}>
                 <source src="glacier-chris-haugen.mp3" type="audio/mpeg" />

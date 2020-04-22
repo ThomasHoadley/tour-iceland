@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 
 const initialState = {
-    musicPlaying: false
+    musicPlaying: false,
+    introComplete: false,
 }
 
 export const GlobalContext = createContext(initialState)
@@ -18,11 +19,20 @@ export const GlobalProvider = ({ children }) => {
         })
     }
 
+    function toggleIntroComplete(toggle) {
+        dispatch({
+            type: 'TOGGLE_INTRO_COMPETE',
+            payload: toggle
+        })
+    }
+
     // pass the state into our global provider for use in child components
     return (
         <GlobalContext.Provider value={{
             musicPlaying: state.musicPlaying,
-            toggleMusic
+            toggleMusic,
+            introComplete: state.introComplete,
+            toggleIntroComplete
         }} >
             {children}
         </GlobalContext.Provider >

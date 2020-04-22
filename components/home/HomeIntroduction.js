@@ -1,23 +1,14 @@
 import React, { useRef, useContext, useEffect } from 'react';
-import { TweenMax, Power3, TimelineLite } from 'gsap'
+import { TweenMax, Power3, TimelineMax } from 'gsap'
 import { GlobalContext } from '../../context/GlobalState'
 
-const HomeIntroduction = (props) => {
-    const { toggleMusic } = useContext(GlobalContext)
-    let { introText, introContainer, subText } = useRef(null)
-    let timeline = new TimelineLite()
+const HomeIntroduction = () => {
+    let { introText, introContainer, subText, overlay } = useRef(null)
+    let timeline = new TimelineMax()
+    const { toggleIntroComplete } = useContext(GlobalContext)
 
-    const handleClick = () => {
-        alert('test');
-        console.log(masterTimeline);
-    }
-
-    useEffect(() => {
-        // create master timeline
-
+    const handleAnimations = () => {
         let masterTimeline = timeline;
-
-        // hide container untill the page is loaded
 
         TweenMax.to(introContainer, 0, { css: { visibility: 'visible' } })
 
@@ -31,7 +22,7 @@ const HomeIntroduction = (props) => {
         // create timeline functions
 
         const introTextTimeline = () => {
-            let timeline = new TimelineLite();
+            let timeline = new TimelineMax();
 
             timeline.staggerTo([introText1, introText2, introText3], 1.2, {
                 y: '0%',
@@ -42,7 +33,7 @@ const HomeIntroduction = (props) => {
         }
 
         const subTextAnimation = () => {
-            let timeline = new TimelineLite();
+            let timeline = new TimelineMax();
 
             timeline.to(subText1, 1, {
                 y: '0px',
@@ -58,27 +49,55 @@ const HomeIntroduction = (props) => {
         }
 
         // create the timeline
-
         masterTimeline.add(introTextTimeline(), "+=1");
         masterTimeline.add(subTextAnimation());
-        masterTimeline.add('startMusic')
+
+        return masterTimeline
+    }
+
+    const handleToggleComplete = () => {
+        toggleIntroComplete(true)
+    }
+
+    // when the component mounts
+    useEffect(() => {
+        // first thing it runs the animations
+        let masterTimeline = handleAnimations();
+
+        // once the animation is handled you need to get out of this function and go to the next one...
+        masterTimeline.eventCallback("onComplete", function () {
+            document.addEventListener('click', function () {
+                let timeline = new TimelineMax();
+
+                timeline
+                    .to(overlay, 2.5, {
+                        autoAlpha: 1,
+                        ease: Power3.easeOut
+                    }).eventCallback('onComplete', function () {
+                        handleToggleComplete(true)
+                    })
+            })
+        })
 
     }, [timeline]);
 
     return (
-        <div className="intro"
-            ref={el => introContainer = el}
-            onClick={() => handleClick()} >
+        <div className="intro" ref={el => introContainer = el}>
+            <div className="overlay" ref={el => overlay = el}></div>
+
             <div className="intro__content">
+
                 <h1 className="appearing-text"
                     ref={el => { introText = el }}>
                     <span>Welcome</span> <span>to</span> <span>Iceland.</span>
                 </h1>
+
                 <p className="rolling-text"
                     ref={el => { subText = el }}>
                     <span>Please ensure you have sound</span>
                     <span>Click to start your journey</span>
                 </p>
+
             </div>
 
             <style jsx>{`
@@ -89,6 +108,15 @@ const HomeIntroduction = (props) => {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    
+                    .overlay {
+                        opacity: 0;
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                        background: #000;
+                        z-index: 100;
+                    }
                     
                     h1 {
                         font-family: 'Playfair Display', serif;
@@ -138,6 +166,8 @@ const HomeIntroduction = (props) => {
                 `}</style>
         </div >
     )
+
+
 }
 
 export default HomeIntroduction
