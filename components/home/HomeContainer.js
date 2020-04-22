@@ -8,12 +8,8 @@ const HomeContainer = () => {
 
     useEffect(() => {
         // play music on the homepage.
-        if (musicPlaying == true) {
+        if (introComplete) {
             music.current.play()
-            // return
-        } else {
-            // return
-            music.current.pause()
         }
 
     });
