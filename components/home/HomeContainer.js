@@ -7,19 +7,14 @@ const HomeContainer = () => {
     const music = useRef('music')
 
     useEffect(() => {
-        // play music on the homepage.
         if (introComplete) {
             music.current.play()
         }
-
     });
 
     return (
         <div className="homePage">
-            {!introComplete
-                ? <HomeIntroduction />
-                : <h1>The map</h1>
-            }
+            {!introComplete ? <HomeIntroduction /> : <h1>The map</h1>}
 
             <audio ref={music}>
                 <source src="glacier-chris-haugen.mp3" type="audio/mpeg" />
