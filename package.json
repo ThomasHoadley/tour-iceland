@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "esri-loader": "^2.14.0",
     "gsap": "^3.2.6",
     "next": "9.3.5",
     "react": "16.13.1",

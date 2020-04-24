@@ -9,17 +9,13 @@ const HomeIntroduction = () => {
 
     const handleAnimations = () => {
         let masterTimeline = timeline;
-
         TweenMax.to(introContainer, 0, { css: { visibility: 'visible' } })
 
-        // set up timeline variables
         let introText1 = introText.children[0]
         let introText2 = introText.children[1]
         let introText3 = introText.children[2]
         let subText1 = subText.children[0]
         let subText2 = subText.children[1]
-
-        // create timeline functions
 
         const introTextTimeline = () => {
             let timeline = new TimelineMax();
@@ -48,7 +44,6 @@ const HomeIntroduction = () => {
             return timeline
         }
 
-        // create the timeline
         masterTimeline.add(introTextTimeline(), "+=1");
         masterTimeline.add(subTextAnimation());
 
@@ -59,24 +54,24 @@ const HomeIntroduction = () => {
         toggleIntroComplete(true)
     }
 
-    // when the component mounts
+    const handlePageTransition = () => {
+        let timeline = new TimelineMax();
+
+        timeline
+            .to(overlay, 1.5, {
+                autoAlpha: 1,
+                ease: Power3.easeOut
+            }).eventCallback('onComplete', function () {
+                handleToggleComplete(true)
+                document.removeEventListener('click', handlePageTransition);
+            })
+    }
+
     useEffect(() => {
-        // first thing it runs the animations
         let masterTimeline = handleAnimations();
 
-        // once the animation is handled you need to get out of this function and go to the next one...
         masterTimeline.eventCallback("onComplete", function () {
-            document.addEventListener('click', function () {
-                let timeline = new TimelineMax();
-
-                timeline
-                    .to(overlay, 1.5, {
-                        autoAlpha: 1,
-                        ease: Power3.easeOut
-                    }).eventCallback('onComplete', function () {
-                        handleToggleComplete(true)
-                    })
-            })
+            document.addEventListener('click', handlePageTransition)
         })
 
     }, [timeline]);
