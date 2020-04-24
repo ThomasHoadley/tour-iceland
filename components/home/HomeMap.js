@@ -15,6 +15,7 @@ function catchAbortError(error) {
 
 const HomeMap = () => {
     const mapRef = useRef();
+
     useEffect(
         () => {
             loadModules(['esri/Map', 'esri/views/SceneView'], { css: true })
@@ -41,27 +42,28 @@ const HomeMap = () => {
 
                     view.ui.empty("top-left");
 
-                    view
-                        .goTo(
-                            {
-                                position: {
-                                    x: -1985616.9086438562,
-                                    y: 9397102.413321003,
-                                    z: 3008225.754174225,
-                                    spatialReference: {
-                                        wkid: 102100
-                                    }
-                                },
-                                heading: 359.99826462803696,
-                                tilt: 1.06239122318838
-                            },
-                            {
-                                duration: 50000,
-                                easing: 'ease-in',
-                                speedFactor: '1.2'
-                            }
-                        )
-                        .catch(catchAbortError);
+                    console.log(view.ready);
+                    // view
+                    //     .goTo(
+                    //         {
+                    //             position: {
+                    //                 x: -1985616.9086438562,
+                    //                 y: 9397102.413321003,
+                    //                 z: 3008225.754174225,
+                    //                 spatialReference: {
+                    //                     wkid: 102100
+                    //                 }
+                    //             },
+                    //             heading: 359.99826462803696,
+                    //             tilt: 1.06239122318838
+                    //         },
+                    //         {
+                    //             duration: 50000,
+                    //             easing: 'ease-in',
+                    //             speedFactor: '1.2'
+                    //         }
+                    //     )
+                    //     .catch(catchAbortError);
 
                     return () => {
                         if (view) {

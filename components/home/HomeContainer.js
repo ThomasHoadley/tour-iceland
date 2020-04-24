@@ -9,8 +9,8 @@ const HomeContainer = () => {
 
     useEffect(() => {
         if (introComplete) {
-            music.current.play()
-            // return;
+            // music.current.play()
+            return;
         }
     });
 

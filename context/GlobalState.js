@@ -3,8 +3,8 @@ import AppReducer from './AppReducer'
 
 const initialState = {
     musicPlaying: false,
-    introComplete: false,
-    // introComplete: true,
+    // introComplete: false,
+    introComplete: true,
 }
 
 export const GlobalContext = createContext(initialState)
