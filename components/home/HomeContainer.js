@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalState'
 import HomeIntroduction from './HomeIntroduction'
+import HomeMap from './HomeMap'
 
 const HomeContainer = () => {
-    const { musicPlaying, introComplete } = useContext(GlobalContext)
+    const { introComplete } = useContext(GlobalContext)
     const music = useRef('music')
 
     useEffect(() => {
         if (introComplete) {
-            music.current.play()
+            // music.current.play()
+            return;
         }
     });
 
     return (
         <div className="homePage">
-            {!introComplete ? <HomeIntroduction /> : <h1>The map</h1>}
+            {!introComplete ? <HomeIntroduction /> : <HomeMap />}
 
             <audio ref={music}>
                 <source src="glacier-chris-haugen.mp3" type="audio/mpeg" />

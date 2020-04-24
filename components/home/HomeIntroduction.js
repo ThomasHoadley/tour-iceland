@@ -70,7 +70,7 @@ const HomeIntroduction = () => {
                 let timeline = new TimelineMax();
 
                 timeline
-                    .to(overlay, 2.5, {
+                    .to(overlay, 1.5, {
                         autoAlpha: 1,
                         ease: Power3.easeOut
                     }).eventCallback('onComplete', function () {
